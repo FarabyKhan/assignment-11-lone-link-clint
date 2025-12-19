@@ -1,14 +1,14 @@
 import React from 'react';
+import LoadingPage from '../../Page/Utility/LoadingPage';
 import Navbar from '../../Components/Home/Navbar';
 import { Outlet } from 'react-router';
 import Footer from '../../Components/Home/Footer';
-import LoadingPage from '../../Page/Utility/LoadingPage';
 
-const HomeLayout = () => {
+const AuthLayout = () => {
     return (
-        <div className='mx-auto px-10'>
+       <div className='mx-auto px-10'>
             <LoadingPage>
-                <Navbar></Navbar>
+               <Navbar></Navbar>
             <main className='min-h-screen mx-auto'>
                 <Outlet></Outlet>
             </main>
@@ -18,4 +18,4 @@ const HomeLayout = () => {
     );
 };
 
-export default HomeLayout;
+export default AuthLayout;
