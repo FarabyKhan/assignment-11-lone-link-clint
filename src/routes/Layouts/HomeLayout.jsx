@@ -6,7 +6,7 @@ import LoadingPage from '../../Page/Utility/LoadingPage';
 
 const HomeLayout = () => {
     return (
-        <div className='mx-auto px-10'>
+        <div className='mx-auto'>
             <LoadingPage>
                 <Navbar></Navbar>
             <main className='min-h-screen mx-auto'>

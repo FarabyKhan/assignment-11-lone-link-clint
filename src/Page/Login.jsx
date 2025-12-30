@@ -4,6 +4,8 @@ import useAuth from '../useHooks/useAuth';
 import SocialLogin from './Utility/SocialLogin';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
+import { FaEye } from 'react-icons/fa';
+import { IoEyeOff } from 'react-icons/io5';
 
 
 
@@ -12,6 +14,7 @@ const Login = () => {
    const [email, setEmail] = useState("")
    const navigate = useNavigate()
    const location =useLocation()
+   const [show, setShow] = useState(false)
 
     const { signInUser, resetPassword,setLoading } = useAuth()
 
@@ -65,10 +68,13 @@ const Login = () => {
           }
             {/* Password field */}
           <label className="label">Password</label>
-          <input type="password" {...register('password',{required:"Password is required!",
+          <input type={show ? "text" : "password"} {...register('password',{required:"Password is required!",
              minLength:6,
               pattern:{value:/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
                message:'Password must contain at least one uppercase and one lowercase letter',},})} className="input" placeholder="Password" />
+               <span onClick={()=> setShow(!show)} className='absolute top-73 left-80 cursor-pointer z-50'>
+                 {show ? <FaEye/> : <IoEyeOff/>}
+                  </span>
                 {
                         errors.password?.type === 'required' && <p className='text-red-600'>{errors.password.message}</p>
                     }
@@ -79,12 +85,13 @@ const Login = () => {
                         errors.password?.type === 'pattern' && <p className='text-red-600'>Password must me al least one uppercase one lowercase and lease one number and at least  one special character</p>
                     }
 
-          <button onClick={handleForgetPassword} className="link link-hover" >Forgot password?</button>
+          <button onClick={handleForgetPassword} className="link link-hover text-sm mt-5" >Forgot password?</button>
           <button className="btn btn-neutral mt-4">Login</button>
-         <SocialLogin></SocialLogin>
-            <p className='my-3 text-sm'>New to LoanLink Please <Link to={'/auth/register'} className='text-secondary underline'>Register</Link></p>
+         
+            <p className='my-3 text-sm'>New to LoanLink Please <Link to={'/auth/register'} className='text-primary underline'>Register</Link></p>
         </fieldset>
         </form>
+        <SocialLogin></SocialLogin>
       </div>
     </div>
         </div>

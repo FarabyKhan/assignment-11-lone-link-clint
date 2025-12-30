@@ -6,7 +6,7 @@ const ActiveLink = ({to,children}) => {
        <NavLink to={to}>
   {({ isActive }) => (
     <span
-      className={`px-2 py-1 border-b-2 transition-all text-[#00a89d] text-xl
+      className={`px-2 py-1 border-b-2 transition-all text-[#FFFFFF] text-xl font-bold
         ${isActive ? "border-primary text-primary" : "border-transparent text-xl"}
       `}
     >

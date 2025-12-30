@@ -3,7 +3,12 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #00a89d;
-  --color-secondary:#6D28D9;
-  --color-accent:#FACC15;
+  --color-primary: #1E40AF;
+  --color-secondary:#FACC15;
+  --color-accent:#FFFFFF;
 }
+
+.btn-primary {
+   background:#1E40AF;
+  
+  }
