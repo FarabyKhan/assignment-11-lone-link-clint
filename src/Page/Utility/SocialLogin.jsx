@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import useAuth from '../../useHooks/useAuth';
+import axios from 'axios';
+import useAxiosSecure from '../../useHooks/useAxiosSecure';
 
 
 const SocialLogin = () => {
@@ -8,12 +10,23 @@ const SocialLogin = () => {
     const { signInWithGoogle, setLoading } = useAuth();
     const location = useLocation()
     const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
 
 
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
+                const user = result.user
+
+                const userInfo ={
+                email: user.email,
+                displayName: user.displayName,
+                photoURL: user.photoURL,
+                role: "borrower",
+                createdAt: new Date()
+                };
+                axiosSecure.post('/users', userInfo);
                 console.log(result.user);
                 navigate(location.state || '/')
                 setLoading(false)

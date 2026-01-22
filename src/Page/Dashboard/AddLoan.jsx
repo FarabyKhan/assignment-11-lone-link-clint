@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FiDollarSign } from "react-icons/fi";
+import { TbCurrencyTaka } from "react-icons/tb";
 import useAxiosSecure from '../../useHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
@@ -10,8 +10,12 @@ const AddLoan = () => {
     const { register,
         handleSubmit,
         watch,
+        reset,
         formState: { error } } = useForm()
         
+        const [showAllPlans, setShowAllPlans] = useState(false)
+        const emiOptions = [6,12,24,36,48,60]; 
+
         const watchLoanLimit = watch('maxLoanLimit');
         const watchInterestRate = watch('interestRate');
         
@@ -75,19 +79,20 @@ const AddLoan = () => {
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, Confirm it!"
     }).then((result) => {
+
   if (result.isConfirmed) {
      axiosSecure.post('/loans', loanData)
        .then(res=>{
          console.log('Loan added successfully:',loanData);
             if(res.data.insertedId){
                 Swal.fire({
-                position: "top-end",
+                position: "middle",
                 icon: "success",
                 title: "Loan Has Been Created!!",
                 showConfirmButton: false,
                 timer: 1500
                 });
-
+                reset();
             }
        })  
          }})
@@ -126,7 +131,7 @@ const AddLoan = () => {
                         {/*Interest Rate */}
                        <div>
                          <label className="label my-3 text-sm font-bold">Interest Rate (%)</label>
-                        <input type="number"{...register('interestRate')} className="input w-full mb-3  text-sm " placeholder="Interest Rate" />
+                        <input type="number" step="0.01" min="0" {...register('interestRate', {valueAsNumber:true})} className="input w-full mb-3  text-sm " placeholder="Interest Rate" />
                        </div>
                         {/* Max Loan Limit */}
                         <div>
@@ -161,7 +166,8 @@ const AddLoan = () => {
                         <label className="label my-3 text-sm font-bold">Available EMI Plans</label>
                         <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
                         {
-                            [6,12,24].map((months, i)=>{
+                        
+                            (showAllPlans ? emiOptions: emiOptions.slice(0, 3)).map((months, i)=>{
                         const emiAmount = watchLoanLimit && watchInterestRate ?
                         calculateEMI(
                             Number(watchLoanLimit),
@@ -170,7 +176,7 @@ const AddLoan = () => {
                         ) : null;
 
                             return(
-                                <label key={i} className='flex items-center gap-2 border p-3 rounded'>
+                                <label key={i} className='flex justify-between items-center gap-2 border border-green-200 p-4 rounded-lg cursor-pointer transition-all duration-300 ease-in-out hover: shadow-lg hover:scale-[1.02] hover:bg-green-400 hover:text-black bg-green-200'>
                                  <div>
                                     <input
                                   type="checkbox"
@@ -181,17 +187,25 @@ const AddLoan = () => {
                                  </div>
                                  {
                                     emiAmount && (
-                              <span className='text-sm font-semibold text-green-600 flex items-center'>
-                                <FiDollarSign />{emiAmount}/month   
+                              <span className='text-sm font-semibold text-green-900 flex items-center'>
+                                <TbCurrencyTaka size={20} />{emiAmount}/month   
                               </span>
                                     )}
                                  </label>
                             )
-                            })}      
+                            })}  
+                               
                         </div>
+                        
+
                         <p className='text-xs text-gray-500 mt-2'>
                          EMI amounts will be calculated automatically based on loan limit & interest
                         </p>
+                        <div className='text-center mt-4'>
+                            <button type='button' onClick={()=> setShowAllPlans(!showAllPlans)} className='btn btn-outline btn-sm' >
+                              {showAllPlans ? "Show More Plans" : "Show Less Plans"}  
+                        </button>
+                            </div> 
                        </div>
                         <div>
                             {/* Images Upload */}
