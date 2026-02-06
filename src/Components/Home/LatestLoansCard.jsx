@@ -1,7 +1,7 @@
 import React from 'react';
 
-const LatestLoansCard = ({loan}) => {
-    const {image, title, shortDescription,maxLoanLimit} = loan
+const LatestLoansCard = ({loans}) => {
+    const {image, title, shortDescription,maxLoanLimit} = loans
     return (
         <div>
            <div className="card bg-base-100 w-96 shadow-sm border border-gray-300 hover:scale-105
@@ -11,8 +11,8 @@ const LatestLoansCard = ({loan}) => {
       src={image}
       alt={title}  className='h-[200px] w-full rounded-xl' />
   </figure>
-  <div className="card-body">
-    <h2 className="card-title">
+  <div className="card-body space-y-2">
+    <h2 className="card-title text-2xl text-primary">
       {title}
     </h2>
     <p className='text-gray-600'>{shortDescription}</p>
@@ -26,7 +26,7 @@ const LatestLoansCard = ({loan}) => {
      </div>
     
     <div className="card-actions justify-center mt-10 mb-5">
-      <button className='btn btn-primary mr-4 cursor-pointer transition-all duration-300 ease-in-out  hover: shadow-lg hover:scale-[1.02] hover:bg-blue-500'>Apply For Loan</button>
+      <button className='btn btn-primary mr-4 cursor-pointer transition-all duration-300 ease-in-out  hover: shadow-lg hover:scale-[1.02] hover:bg-blue-500'>View Details</button>
     </div>
   </div>
 </div>
