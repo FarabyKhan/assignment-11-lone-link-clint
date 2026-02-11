@@ -15,7 +15,7 @@ const Login = () => {
    const navigate = useNavigate()
    const location =useLocation()
    const [show, setShow] = useState(false)
-
+  
     const { signInUser, resetPassword,setLoading } = useAuth()
 
     const handleLogin=(data)=>{
@@ -23,7 +23,8 @@ const Login = () => {
       signInUser(data.email, data.password)
        .then(result=>{
         console.log(result.user);
-         navigate(location?.state || '/')
+        const from = location.state?.from?.pathname || '/'
+         navigate(from,{ replace:true });
          setLoading(false)
       })
       .catch(error=>{

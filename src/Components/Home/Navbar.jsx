@@ -52,7 +52,7 @@ const {user, loading, signOutUser } = useAuth()
         {links}
       </ul>
     </div>
-  <Link to={"/"}><a className="btn btn-ghost text-xl"><Logo></Logo></a></Link>
+  <Link to={"/"} className="btn btn-ghost text-xl"><Logo></Logo></Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">

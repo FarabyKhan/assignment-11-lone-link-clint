@@ -28,7 +28,8 @@ const SocialLogin = () => {
                 };
                 axiosSecure.post('/users', userInfo);
                 console.log(result.user);
-                navigate(location.state || '/')
+                const from = location.state?.from?.pathname || '/'
+                 navigate(from,{ replace:true });
                 setLoading(false)
             })
             .then(error => {

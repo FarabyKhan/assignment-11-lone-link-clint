@@ -8,7 +8,9 @@ const HomeLayout = () => {
     return (
         <div className='mx-auto'>
             <LoadingPage>
-                <Navbar></Navbar>
+                <nav>
+                    <Navbar></Navbar>
+                </nav>
             <main className='min-h-screen mx-auto'>
                 <Outlet></Outlet>
             </main>

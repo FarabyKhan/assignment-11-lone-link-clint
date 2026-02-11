@@ -5,10 +5,13 @@
   default: true;
   --color-primary: #1E40AF;
   --color-secondary:#1EA84C;
-  --color-accent:#FFFFFF;
+  --color-accent:#6082B6;
 }
 
 .btn-primary {
    background:#1E40AF;
   
   }
+.btn-secondary{
+  background: #146837;
+}

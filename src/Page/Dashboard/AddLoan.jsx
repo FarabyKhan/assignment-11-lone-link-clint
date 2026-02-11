@@ -5,6 +5,7 @@ import { TbCurrencyTaka } from "react-icons/tb";
 import useAxiosSecure from '../../useHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import useAuth from '../../useHooks/useAuth';
+import { Link } from 'react-router';
 
 
 const AddLoan = () => {

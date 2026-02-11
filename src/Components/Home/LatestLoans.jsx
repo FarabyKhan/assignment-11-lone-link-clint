@@ -19,7 +19,7 @@ const LatestLoans = () => {
                 <h1 className='text-center text-4xl mb-15 font-semibold text-primary'>See Our Latest Loans We Offer </h1>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto mr-2 w-11/12 gap-5'>
                     {
-                        featuredLoans.map(loans => <LatestLoansCard key={loans._id} loans={loans}></LatestLoansCard>)
+                        featuredLoans.map(loan => <LatestLoansCard key={loan._id} loan={loan}></LatestLoansCard>)
                     }
                 </div>
             </div>

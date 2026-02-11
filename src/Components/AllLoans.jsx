@@ -15,7 +15,7 @@ const AllLoans = () => {
 
     return (
         <div className='flex flex-col justify-center items-center mt-15'>
-            <p className='text-3xl font-bold text-secondary mb-10'>All The Loans We Offer </p>
+            <p className='text-3xl font-bold text-primary mb-10'>All The Loans We Offer </p>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto mr-2 w-11/12 gap-5 '>
                 {
                 loans.map(loan=><AllLoansCard key={loan._id} loan={loan}></AllLoansCard>)
