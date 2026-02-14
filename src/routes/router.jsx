@@ -15,6 +15,7 @@ import AllLoan from '../Page/Dashboard/AllLoan';
 import AddLoan from '../Page/Dashboard/AddLoan';
 import LoanDetails from '../Page/LoanDetails';
 import LoanApply from '../Page/LoanApply';
+import ManageUsers from '../Page/Dashboard/Admin/ManageUsers';
 
 export const router = createBrowserRouter([
         {
@@ -73,7 +74,11 @@ export const router = createBrowserRouter([
         {
             path:"/dashboard/add-loan",
             element:<AddLoan></AddLoan>
-        }
+        },
+        {
+            path:"/dashboard/manage-users",
+            element:<ManageUsers></ManageUsers>
+        },
            ]
            
         },

@@ -3,6 +3,7 @@ import LoadingAm from './Utility/LoadingAm';
 import { Link,  useNavigate,  useParams } from 'react-router';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import useAuth from '../useHooks/useAuth';
+import useAxiosSecure from '../useHooks/useAxiosSecure';
 
 const LoanDetails = () => {
 
@@ -13,30 +14,29 @@ const LoanDetails = () => {
     const [role, setRole] = useState(null);
     const [roleLoading , setRoleLoading] =useState(true)
     const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
 
     useEffect(() => {
         setLoading(true)
-        fetch(`http://localhost:3000/loans/${_id}`)
-            .then(res => res.json())
-            .then(data => {
+        axiosSecure.get(`/loans/${_id}`)
+            .then(res => {
                 // console.log(data)
-                setLoan(data)
+                setLoan(res.data)
                 setLoading(false)
             })
-    }, [_id])
+    }, [_id,axiosSecure])
 
     useEffect(()=>{
         if(user?.email){
-            fetch(`http://localhost:3000/users/${user.email}`)
-            .then(res=>res.json())
-            .then(data=> {
-                setRole(data?.role)
+            axiosSecure.get(`/users/${user.email}`)
+            .then(res=> {
+                setRole(res.data?.role)
                 setRoleLoading(false)
             })
         } else{
             setRoleLoading(false);
         }
-    },[user])
+    },[user,axiosSecure])
 
     const convert=(number)=>{
 

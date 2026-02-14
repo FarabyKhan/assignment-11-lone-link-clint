@@ -7,6 +7,7 @@ import Footer from '../../Components/Home/Footer';
 import { RiGalleryView2 } from 'react-icons/ri';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import DashActive from '../../Page/Dashboard/DashActive';
+import { MdManageAccounts } from 'react-icons/md';
 
 
 const DashboardLayout = () => {
@@ -44,14 +45,20 @@ const DashboardLayout = () => {
         </li>
 
         {/* List item */}
-        <li>
+        <li className='my-5'>
+          
+          <DashActive data-tip="ManageUsers" to={'/dashboard/manage-users'}>
+        <MdManageAccounts className='w-5 h-5'/>
+        <span className="is-drawer-close:hidden">Manage Users</span>
+        </DashActive>
+
           <DashActive data-tip="AllLoan" to={'/dashboard/all-loan'}>
-        <RiGalleryView2 />
+        <RiGalleryView2  className='w-5 h-5'/>
         <span className="is-drawer-close:hidden">All Loan</span>
         </DashActive>
           
           <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
-        <BsDatabaseFillAdd />
+        <BsDatabaseFillAdd  className='w-5 h-5'/>
         <span className="is-drawer-close:hidden">Add Loan</span>
         </DashActive>
         </li>
