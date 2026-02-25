@@ -66,7 +66,7 @@ const [showReasonBox, setShowReasonBox] = useState(false)
 
     return (
         <div>
-            <h1 className='text-4xl text-primary font-semibold text-center'>Manage Users: {users.length}</h1>
+            <h1 className='text-4xl text-primary font-semibold text-center'>Manage Users</h1>
             <div className="overflow-x-auto my-15">
   <table className="table ">
     {/* head */}

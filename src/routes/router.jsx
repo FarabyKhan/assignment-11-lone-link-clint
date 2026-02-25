@@ -79,6 +79,10 @@ export const router = createBrowserRouter([
             path:"/dashboard/manage-users",
             element:<ManageUsers></ManageUsers>
         },
+        {
+            path:"/dashboard/all-loans",
+            element:<AllLoans></AllLoans>
+        },
            ]
            
         },
