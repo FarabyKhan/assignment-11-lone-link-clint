@@ -2,8 +2,8 @@ import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import heroImg1 from '../assets/slide_1.png'
-import heroImg2 from '../assets/slide_2.avif'
-import heroImg3 from '../assets/slide_3.jpg'
+import heroImg2 from '../assets/slide_2.webp'
+import heroImg3 from '../assets/slide_4.webp'
 
 import {Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -53,8 +53,9 @@ const HeroSlider = () => {
                 slides.map((slide, i) =>
                     <SwiperSlide key={i}>
                         <div className='relative w-full h-full'>
-                            <img src={slide.image} alt="" className='w-full h-full object-cover object-center brightness-75' />
-                            <div className='absolute inset-0 flex justify-center items-end  md:items-center pt-60'>
+                            <img src={slide.image} alt="" className='w-full h-full object-cover object-center brightness-75 contrast-125' />
+                            <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent'></div>
+                                <div className='absolute inset-0 flex justify-center items-end  md:items-center pt-60'>
                                 <div className='text-center text-white px-4 max-w-2xl '>
                                     <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold mb-4'>
                                         {slide.title}
@@ -70,6 +71,7 @@ const HeroSlider = () => {
                                     </a>
                                 </div>
                             </div>
+                            
                         </div>
                     </SwiperSlide>
                 )

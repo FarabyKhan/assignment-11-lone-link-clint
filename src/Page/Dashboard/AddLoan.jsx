@@ -15,7 +15,7 @@ const AddLoan = () => {
         reset,
         formState: { errors } } = useForm()
 
-        const{ user } = useAuth()
+    const { user } = useAuth()
     const [showAllPlans, setShowAllPlans] = useState(false)
     const emiOptions = [6, 12, 24, 36, 48, 60, 90, 120, 180];
 
@@ -66,14 +66,14 @@ const AddLoan = () => {
                 const loanData = {
                     title: data.loanTitle,
                     description: data.description,
-                    shortDescription: data.shortDescription, 
+                    shortDescription: data.shortDescription,
                     category: data.category,
                     interestRate,
                     maxLoanLimit: loanLimit,
                     requiredDocuments: data.requiredDocuments || [],
                     emiPlans,
                     image: imageUrl,
-                    showOnHome: false,   
+                    showOnHome: false,
                 }
                 console.log(loanData);
                 Swal.fire({
@@ -122,17 +122,17 @@ const AddLoan = () => {
                             {/* Loan Title */}
                             <div>
                                 <label className="label my-3 text-sm font-bold">Loan Title</label>
-                                <input type="text"{...register('loanTitle',{required:'Loan is required'})}  className="input w-full mb-3 text-sm " placeholder="Loan Title" />
+                                <input type="text"{...register('loanTitle', { required: 'Loan is required' })} className="input w-full mb-3 text-sm " placeholder="Loan Title" />
                                 {errors.loanTitle && (
-                             <p className='text-red-500 text-xs'>{errors.loanTitle.message}</p>
+                                    <p className='text-red-500 text-xs'>{errors.loanTitle.message}</p>
                                 )}
                             </div>
-                            
+
 
                             {/* Loan Category */}
                             <div>
                                 <label className="label my-3 text-sm font-bold">Category</label>
-                                <select {...register('category',{required:'Category is required'})} className="select w-full mb-3 text-sm " defaultValue="">
+                                <select {...register('category', { required: 'Category is required' })} className="select w-full mb-3 text-sm " defaultValue="">
                                     <option value="" disabled className='text-gray-300'>Pick a Category</option>
                                     <option value="personal-loan">Personal Loan</option>
                                     <option value="small-business-loan">Small Business Loan</option>
@@ -150,42 +150,42 @@ const AddLoan = () => {
                             {/*Interest Rate */}
                             <div>
                                 <label className="label my-3 text-sm font-bold">Interest Rate (%)</label>
-                                <input type="number" step="0.01" min="0" {...register('interestRate', { valueAsNumber: true , required:'Interest rate is required',min:{value:0.01, message:'Interest must be greater then 0'}})} className="input w-full mb-3  text-sm " placeholder="Interest Rate" />
-                                {errors.interestRate && ( <p className='text-red-500 text-xs'>{errors.interestRate.message}</p> )}
+                                <input type="number" step="0.01" min="0" {...register('interestRate', { valueAsNumber: true, required: 'Interest rate is required', min: { value: 0.01, message: 'Interest must be greater then 0' } })} className="input w-full mb-3  text-sm " placeholder="Interest Rate" />
+                                {errors.interestRate && (<p className='text-red-500 text-xs'>{errors.interestRate.message}</p>)}
                             </div>
 
-                            
+
 
                             {/* Max Loan Limit */}
                             <div>
                                 <label className="label my-3 text-sm font-bold">Max Loan Limit</label>
-                                <input type="number"{...register('maxLoanLimit', {required:'Loan limit is required', min:{value:1, message: 'Loan limit must be greater then 0'}})} className="input w-full mb-3  text-sm " placeholder="Max Loan Limit" />
+                                <input type="number"{...register('maxLoanLimit', { required: 'Loan limit is required', min: { value: 1, message: 'Loan limit must be greater then 0' } })} className="input w-full mb-3  text-sm " placeholder="Max Loan Limit" />
                                 {errors.maxLoanLimit && (
-                                <p className='text-red-500 text-xs'>{errors.maxLoanLimit.message}</p>
-                            )}
+                                    <p className='text-red-500 text-xs'>{errors.maxLoanLimit.message}</p>
+                                )}
                             </div>
-                            
+
 
                             {/* Short description */}
                             <div>
-                            <label className="label my-3 text-sm font-bold">Short Description</label>
-                            <input type="text"{...register('shortDescription',{required:'Short description must be required'})} className='input w-full mb-3 text-sm' placeholder='Short Description' />
-                            {errors.shortDescription && (
-                                 <p className='text-red-500 text-xs'>{errors.shortDescription.message}</p>
-                            )}
+                                <label className="label my-3 text-sm font-bold">Short Description</label>
+                                <input type="text"{...register('shortDescription', { required: 'Short description must be required' })} className='input w-full mb-3 text-sm' placeholder='Short Description' />
+                                {errors.shortDescription && (
+                                    <p className='text-red-500 text-xs'>{errors.shortDescription.message}</p>
+                                )}
                             </div>
 
-                            
+
 
                             <div>
                                 {/* Description */}
                                 <label className="label my-3 text-sm font-bold">Long Description</label>
-                                <input type="text"{...register('description',{required:'Description is required'})} className="textarea w-full mb-3  text-sm " placeholder="Loan Description" />
+                                <input type="text"{...register('description', { required: 'Description is required' })} className="textarea w-full mb-3  text-sm " placeholder="Loan Description" />
                                 {errors.description && (
-                            <p className='text-red-500 text-xs'>{errors.description.message}</p>
-                            )}
+                                    <p className='text-red-500 text-xs'>{errors.description.message}</p>
+                                )}
                             </div>
-                            
+
 
                             {/* Required Documents*/}
                             <div className='md:col-span-2'>
@@ -196,7 +196,7 @@ const AddLoan = () => {
                                             <label key={i} className='flex items-center gap-2 text-sm'>
                                                 <input type="checkbox"
                                                     value={doc}
-                                                    {...register("requiredDocuments",{validate:value=>value.length>0 || 'Select at least one document'})}
+                                                    {...register("requiredDocuments", { validate: value => value.length > 0 || 'Select at least one document' })}
                                                 />{doc}
                                             </label>
                                         )}
@@ -257,7 +257,7 @@ const AddLoan = () => {
                                                         <input
                                                             type="checkbox"
                                                             value={months}
-                                                            {...register('emiDurations',{validate:value=>value.length>0 || 'Select at least one EMI Plan'})}
+                                                            {...register('emiDurations', { validate: value => value.length > 0 || 'Select at least one EMI Plan' })}
                                                         />
                                                         <span className='font-medium px-2'>{months} Months -</span>
                                                     </div>
@@ -272,7 +272,7 @@ const AddLoan = () => {
                                         })}
 
                                 </div>
-                                
+
 
 
                                 <p className='text-xs text-gray-500 mt-2'>
@@ -283,23 +283,23 @@ const AddLoan = () => {
                                         {showAllPlans ? "Show More Plans" : "Show Less Plans"}
                                     </button>
                                 </div>
-                                 {errors.emiDurations && (
-                                     <p className='text-red-500 text-xs mt-1'>
-                                   Select at least one EMI Plan.
-                                </p>
+                                {errors.emiDurations && (
+                                    <p className='text-red-500 text-xs mt-1'>
+                                        Select at least one EMI Plan.
+                                    </p>
                                 )}
                             </div>
-                           
+
 
                             {/* Images Upload */}
-                            <div>       
+                            <div>
                                 <label className="label my-3 text-sm font-bold">Images</label>
-                                <input type="file"{...register('images',{required: 'Image is required'})} className="file-input w-full mb-3" placeholder="Images Upload" />
+                                <input type="file"{...register('images', { required: 'Image is required' })} className="file-input w-full mb-3" placeholder="Images Upload" />
                             </div>
-                        
+
                         </div>
-                                {
-                            errors.images &&(
+                        {
+                            errors.images && (
                                 <p className='text-red-500 text-xs mt-1'>{errors.images.message}</p>
                             )
                         }
