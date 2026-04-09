@@ -19,7 +19,7 @@ const Navbar = () => {
   }
 
   const links = <>
-    <li><ActiveLink to={'/'}>Home</ActiveLink></li>
+    <li><ActiveLink to={'/'} >Home</ActiveLink></li>
     <li><ActiveLink to={'/all-loans'}>All Loans</ActiveLink></li>
     <li><ActiveLink to={'/about'}>About Us</ActiveLink></li>
     <li><ActiveLink to={'/contact'}>Contact</ActiveLink></li>
@@ -35,8 +35,8 @@ const Navbar = () => {
 
   </>
 
-  return (
-    <div className="navbar bg-gradient-to-b from-[#3372E2] to-[#8FD0F4] shadow-sm px-10">
+  return ( 
+    <div className="navbar bg-linear-to-b from-[#bad4d2] to-[#e2eef3] shadow-sm px-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

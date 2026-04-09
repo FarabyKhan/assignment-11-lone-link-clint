@@ -17,6 +17,7 @@ import LoanDetails from '../Page/LoanDetails';
 import LoanApply from '../Page/LoanApply';
 import ManageUsers from '../Page/Dashboard/Admin/ManageUsers';
 import UpdatesLoan from '../Page/Dashboard/UpdatesLoan';
+import PendingLoan from '../Page/Dashboard/Manager/PendingLoan';
 
 
 export const router = createBrowserRouter([
@@ -88,6 +89,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/updates-loan/:id",
                 element: <UpdatesLoan></UpdatesLoan>
+            },
+            {
+                path: "/dashboard/pending-loan",
+                element: <PendingLoan></PendingLoan>
             },
         ]
 

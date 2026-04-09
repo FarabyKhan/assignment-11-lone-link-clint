@@ -19,7 +19,7 @@ const UpdatesLoan = () => {
         getValues,
         formState: { errors } } = useForm()
 
-    const { user,loading,setLoading, } = useAuth()
+    const { loading,setLoading, } = useAuth()
     const { id } = useParams()
     const [showAllPlans, setShowAllPlans] = useState(false)
     const emiOptions = [6, 12, 24, 36, 48, 60, 90, 120, 180];
@@ -149,7 +149,7 @@ const UpdatesLoan = () => {
 
     return (
         <div className='mt-10 text-black "w-full min-h-[calc(100vh-64px)]"'>
-            <h1 className='text-2xl font-bold mb-6 text-center my-3'>Update The Loan</h1>
+            <h1 className='text-4xl font-bold mb-6 text-center my-3 custom-font text-primary'>Update The Loan</h1>
             <form onSubmit={handleSubmit(handleAddLoan)}>
                 <div>
                     <fieldset className="fieldset shadow-2xl p-6 rounded-lg">

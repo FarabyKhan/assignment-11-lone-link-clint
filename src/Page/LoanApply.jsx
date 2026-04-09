@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {  useParams } from 'react-router';
+import {  useNavigate, useParams } from 'react-router';
 import useAuth from '../useHooks/useAuth';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../useHooks/useAxiosSecure';
 
 const LoanApply = () => {
 
     const { _id } = useParams()
         const { user } = useAuth()
         const [loan, setLoan] = useState(null)
+        const[submitting, setSubmitting] =useState(false)
+        const axiosSecure = useAxiosSecure()
+        const navigate = useNavigate()
+
 
     const { handleSubmit,
-        register, 
-        watch, 
-        reset,  formState: { errors }}= useForm()
+        register,  
+        reset,  
+        formState: { errors }}= useForm()
 
         useEffect(()=>{
             if(!_id || !user)
@@ -38,7 +43,7 @@ const LoanApply = () => {
 
             const applicationData = {
                 ...formData,
-                userEmail:user.email,
+                email:user.email,
                 contactNumber:fullPhoneNumber,
                 loanId:_id,
                 status: "pending",
@@ -61,16 +66,10 @@ const LoanApply = () => {
               
               if(!confirmResult.isConfirmed)
                 return;
-                const res = await fetch('http://localhost:3000/loan-application',{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify(applicationData)
-              })
-              
-              
-              const result = await res.json()
+              setSubmitting(true);
+                const res = await axiosSecure.post('/loan-application',applicationData);
+  
+              const result =  res.data
               if(result.insertedId){
                     Swal.fire({
                        position: "center",
@@ -79,7 +78,7 @@ const LoanApply = () => {
                        showConfirmButton: false,
                        timer: 1500
                    });
-                   reset()
+                   navigate(`/loan-details/${_id}`);
               }
 
             } catch (error) {
@@ -90,8 +89,10 @@ const LoanApply = () => {
                        showConfirmButton: false,
                        timer: 1500
                    });
+            } finally{
+                setSubmitting(false);
             }
-        }
+        };
 
     return (
         <div className='mt-10 text-black "w-full min-h-[calc(100vh-64px)]"'>
@@ -140,11 +141,11 @@ const LoanApply = () => {
                                 <div className='flex gap-2'>
                                     <select {...register('countryCode',{required:'Country code is required'})} className='select select-bordered w-32 text-sm'>
                                     <option value="">Code</option>
-                                    <option n value="+088">BD +880</option>
-                                    <option n value="+91">In +91</option>
-                                    <option n value="+1">US +1</option>
-                                    <option n value="+44">UK +44</option>
-                                    <option n value="+61">AU +61</option>
+                                    <option  value="+088">BD +880</option>
+                                    <option  value="+91">In +91</option>
+                                    <option  value="+1">US +1</option>
+                                    <option  value="+44">UK +44</option>
+                                    <option  value="+61">AU +61</option>
                                     </select>
                                     <input type="number"{...register('contactNumber',{required:'Contact Number  is required', 
                                         minLength: {

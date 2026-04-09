@@ -8,11 +8,12 @@ import { RiGalleryView2 } from 'react-icons/ri';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import DashActive from '../../Page/Dashboard/DashActive';
 import { MdManageAccounts } from 'react-icons/md';
+import { MdPendingActions } from "react-icons/md";
 
 
 const DashboardLayout = () => {
     return (
-        <div className="drawer lg:drawer-open">
+        <div className="drawer lg:drawer-open ">
            <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
   <div className="drawer-content">
     {/* Navbar */}
@@ -60,6 +61,11 @@ const DashboardLayout = () => {
           <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
         <BsDatabaseFillAdd  className='w-5 h-5'/>
         <span className="is-drawer-close:hidden">Add Loan</span>
+        </DashActive>
+
+          <DashActive data-tip="PendingLoan" to={'/dashboard/pending-loan'}>
+        <MdPendingActions  className='w-5 h-5'/>
+        <span className="is-drawer-close:hidden">Pending Loan</span>
         </DashActive>
         </li>
       </ul>

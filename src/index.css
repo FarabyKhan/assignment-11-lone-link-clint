@@ -1,17 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+.custom-font {
+  font-family: "Libre Baskerville", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 @plugin "daisyui";
+
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #1E40AF;
-  --color-secondary:#1EA84C;
-  --color-accent:#6082B6;
+  --color-primary: #207DB0;
+  --color-secondary: #1EA84C;
+  --color-accent: #6082B6;
 }
 
 .btn-primary {
-   background:#1E40AF;
-  
-  }
-.btn-secondary{
+  background: #2595d1;
+
+}
+
+.btn-secondary {
   background: #146837;
 }

@@ -12,18 +12,35 @@ const LoanDetails = () => {
     const [loan, setLoan] = useState({})
     const { user } = useAuth()
     const [role, setRole] = useState(null);
-    const [roleLoading , setRoleLoading] =useState(true)
+    const [roleLoading , setRoleLoading]= useState(true)
+    const [checkLoading, setCheckLoading]= useState(true)
+    const[alreadyApplied, setAlreadyApplied] = useState(false)
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
 
+
     useEffect(() => {
-        setLoading(true)
-        axiosSecure.get(`/loans/${_id}`)
+        const fetchLoanDetails= async()=>{
+            try {
+                setLoading(true)
+  const loanApplyRes = await axiosSecure.get(`/loanApply/${_id}`);
+  const loanApply = loanApplyRes.data;
+    setLoan(loanApply);
+
+    const loansRes = await axiosSecure.get(`/loans/${loanApply.loanId}`);
+    setLoan(a=> ({...a,...loansRes.data}))
+
             .then(res => {
-                // console.log(data)
+                console.log(res.data)
                 setLoan(res.data)
                 setLoading(false)
             })
+            } catch (error) {
+               console.log(error);
+                setLoading(false)  
+            }
+        }
+        fetchLoanDetails()
     }, [_id,axiosSecure])
 
     useEffect(()=>{
@@ -38,6 +55,17 @@ const LoanDetails = () => {
         }
     },[user,axiosSecure])
 
+    useEffect(()=>{
+        if(user?.email && _id){
+            setCheckLoading(true)
+            axiosSecure.get(`/loan-application/check?email=${user.email}&loanId=${_id}`)
+            .then(res=>{
+                setAlreadyApplied(res.data.applied)
+                setCheckLoading(false)
+            });
+        }
+    },[_id,axiosSecure,user])
+
     const convert=(number)=>{
 
     if(number>=1000000)
@@ -49,12 +77,13 @@ const LoanDetails = () => {
     return number
     }
 
-    if (loading || roleLoading)
+    if (loading || roleLoading || checkLoading)
         return <LoadingAm></LoadingAm>
 
     const{image, title, category ,interestRate ,maxLoanLimit, description, emiPlans,} = loan || {}
 
-    const isDisabled= !user || role === "admin" || role === "manager" ;
+    const isDisabled= !user || role === "admin" || role === "manager" || alreadyApplied;
+
 
     return (
         <div className='my-5 min-h-screen ml-20'>
@@ -102,6 +131,28 @@ const LoanDetails = () => {
                             
                             Apply Now 
                         </button>
+                        {
+                            alreadyApplied && (
+                                <p className='text-red-500 mt-2 font-medium'>
+                                    You already have an active application for this loan.
+                                </p>
+                            )
+                        }
+                        
+                        {
+                            role === 'admin' &&(
+                               <p className='text-red-500 mt-2 font-medium'>
+                                   Admin can't apply for the loan.
+                                </p> 
+                            )
+                        }
+                        {
+                            role === 'manager' &&(
+                               <p className='text-red-500 mt-2 font-medium'>
+                                   Manager can't apply for the loan.
+                                </p> 
+                            )
+                        }
                        </div>
                        
             </div>

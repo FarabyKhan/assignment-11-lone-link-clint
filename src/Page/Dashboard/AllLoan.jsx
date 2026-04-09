@@ -64,7 +64,7 @@ const AllLoan = () => {
   })
   return (
     <div className='space-y-20'>
-      <h1 className='text-4xl text-primary font-semibold text-center mt-10'>All loans</h1>
+      <h1 className='text-4xl font-bold  text-center custom-font text-primary my-10'>All loans</h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
