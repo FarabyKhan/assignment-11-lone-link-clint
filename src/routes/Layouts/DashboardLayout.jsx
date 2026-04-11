@@ -9,7 +9,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import DashActive from '../../Page/Dashboard/DashActive';
 import { MdManageAccounts } from 'react-icons/md';
 import { MdPendingActions } from "react-icons/md";
-
+import { MdOutlineSettingsApplications } from "react-icons/md";
 
 const DashboardLayout = () => {
     return (
@@ -57,6 +57,10 @@ const DashboardLayout = () => {
         <RiGalleryView2  className='w-5 h-5'/>
         <span className="is-drawer-close:hidden">All Loan</span>
         </DashActive>
+          <DashActive data-tip="LoanApplications" to={'/dashboard/loan-applications'}>
+        <MdOutlineSettingsApplications  className='w-6 h-6'/>
+        <span className="is-drawer-close:hidden">Loan Applications</span>
+        </DashActive>
           
           <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
         <BsDatabaseFillAdd  className='w-5 h-5'/>
@@ -64,7 +68,7 @@ const DashboardLayout = () => {
         </DashActive>
 
           <DashActive data-tip="PendingLoan" to={'/dashboard/pending-loan'}>
-        <MdPendingActions  className='w-5 h-5'/>
+        <MdPendingActions  className='w-6 h-6'/>
         <span className="is-drawer-close:hidden">Pending Loan</span>
         </DashActive>
         </li>

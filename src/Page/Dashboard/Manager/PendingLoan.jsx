@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
 import useAxiosSecure from '../../../useHooks/useAxiosSecure'
 import { useNavigate } from 'react-router'
@@ -11,8 +11,8 @@ const PendingLoan = () => {
   const axiosSecure = useAxiosSecure()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const [loading, setLoading] = useState(false)
   const [processingId, setProcessingId] = useState(null)
+  
 
   const { data: loanApply = [], isLoading } = useQuery({
     queryKey: ['loan-application'],
@@ -37,8 +37,7 @@ const PendingLoan = () => {
     });
     if (confirm.isConfirmed) {
       try {
-        setProcessingId(id)
-        setLoading(true);
+        setProcessingId(id);
 
         await axiosSecure.patch(`/loanApply/status/${id}`, { status });
         await queryClient.invalidateQueries(['loan-application']);
@@ -54,7 +53,7 @@ const PendingLoan = () => {
         });
 
       } catch (error) {
-        setLoading(false)
+        
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -63,8 +62,7 @@ const PendingLoan = () => {
 
       }
       finally {
-        setProcessingId(null)
-        setLoading(false);
+        setProcessingId(null) 
       }
     }
 
@@ -90,7 +88,9 @@ const PendingLoan = () => {
     return number
   }
 
-  if (loading || isLoading) {
+  
+
+  if ( isLoading) {
     return <LoadingAm></LoadingAm>
   }
 
@@ -149,7 +149,7 @@ const PendingLoan = () => {
           </tbody>
 
         </table>
-
+        
       </div>
     </div>
   )

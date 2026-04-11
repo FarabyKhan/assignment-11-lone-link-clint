@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import useAxiosSecure from '../../../useHooks/useAxiosSecure';
 import LoadingAm from '../../Utility/LoadingAm';
 import toast from 'react-hot-toast';
-import useAuth from '../../../useHooks/useAuth';
+
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure()

@@ -5,8 +5,6 @@ import Home from '../Components/Home/Home';
 import AuthLayout from './Layouts/AuthLayout';
 import Login from '../Page/Login';
 import Register from '../Page/Register';
-import ErrorElement from '../Page/Utility/ErrorElement';
-import ErrorElement2 from '../Page/Utility/ErrorElement2';
 import LoadingPage from '../Page/Utility/LoadingPage';
 import AllLoans from '../Components/AllLoans';
 import PrivateRoutes from './PrivateRoutes';
@@ -18,6 +16,10 @@ import LoanApply from '../Page/LoanApply';
 import ManageUsers from '../Page/Dashboard/Admin/ManageUsers';
 import UpdatesLoan from '../Page/Dashboard/UpdatesLoan';
 import PendingLoan from '../Page/Dashboard/Manager/PendingLoan';
+import LoanApplications from '../Page/Dashboard/Admin/LoanApplications';
+import ErrorElement2 from '../Page/Utility/ErrorElement2';
+import ErrorElement from '../Page/Utility/ErrorElement';
+
 
 
 export const router = createBrowserRouter([
@@ -25,7 +27,7 @@ export const router = createBrowserRouter([
         path: "/",
         Component: HomeLayout,
         hydrateFallbackElement: <LoadingPage></LoadingPage>,
-        errorElement: <ErrorElement2></ErrorElement2>,
+        errorElement: <ErrorElement2></ErrorElement2> ,
         children: [
             {
                 index: true,
@@ -77,6 +79,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/add-loan",
                 element: <AddLoan></AddLoan>
+            },
+            {
+                path: "/dashboard/loan-applications",
+                element: <LoanApplications></LoanApplications>
             },
             {
                 path: "/dashboard/manage-users",
