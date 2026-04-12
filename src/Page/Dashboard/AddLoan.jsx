@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { TbCurrencyTaka } from "react-icons/tb";
 import useAxiosSecure from '../../useHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
-import useAuth from '../../useHooks/useAuth';
 
 
 
@@ -15,7 +14,7 @@ const AddLoan = () => {
         reset,
         formState: { errors } } = useForm()
 
-    const { user } = useAuth()
+    
     const [showAllPlans, setShowAllPlans] = useState(false)
     const emiOptions = [6, 12, 24, 36, 48, 60, 90, 120, 180];
 

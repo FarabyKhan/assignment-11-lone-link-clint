@@ -19,6 +19,7 @@ import PendingLoan from '../Page/Dashboard/Manager/PendingLoan';
 import LoanApplications from '../Page/Dashboard/Admin/LoanApplications';
 import ErrorElement2 from '../Page/Utility/ErrorElement2';
 import ErrorElement from '../Page/Utility/ErrorElement';
+import ApprovedLoan from '../Page/Dashboard/Manager/ApprovedLoan';
 
 
 
@@ -99,6 +100,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/pending-loan",
                 element: <PendingLoan></PendingLoan>
+            },
+            {
+                path: "/dashboard/approved-loan",
+                element: <ApprovedLoan></ApprovedLoan>
             },
         ]
 

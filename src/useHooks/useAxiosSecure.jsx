@@ -9,39 +9,41 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
     const navigate = useNavigate()
-const {user, signOutUser } = useAuth()
-    useEffect(()=>{  
-     const reqInterceptor = axiosSecure.interceptors.request.use(config =>{
-        if(user?.accessToken){
-            config.headers.Authorization = `Bearer ${user.accessToken}`}
+    const { user, signOutUser } = useAuth()
+    useEffect(() => {
+        const reqInterceptor = axiosSecure.interceptors.request.use(config => {
+            const token = localStorage.getItem('access-token') || user?.accessToken;
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`
+            }
 
-        return config;
-    })
+            return config;
+        })
 
-        const resInterceptor = axiosSecure.interceptors.response.use((response)=>{
+        const resInterceptor = axiosSecure.interceptors.response.use((response) => {
             return response
-        },(error) =>{
+        }, (error) => {
             console.log(error);
 
-        const statusCode = error.response.status;
-        if( statusCode === 401 || statusCode === 403 ){
-            signOutUser()
-            .then(()=>{
-                navigate('/auth/login')
-            })
-        }
-        return Promise.reject(error)
-            
-        })
-        
-        
+            const statusCode = error?.response?.status;
+            if ((statusCode === 401 || statusCode === 403) && user) {
+                signOutUser()
+                    .then(() => {
+                        navigate('/auth/login')
+                    })
+            }
+            return Promise.reject(error)
 
-        return ()=>{
+        })
+
+
+
+        return () => {
             axiosSecure.interceptors.request.eject(reqInterceptor)
             axiosSecure.interceptors.response.eject(resInterceptor)
         }
 
-    },[user,navigate,signOutUser])
+    }, [user, navigate, signOutUser])
 
     return axiosSecure
 };

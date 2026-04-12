@@ -96,7 +96,7 @@ const PendingLoan = () => {
 
   return (
     <div>
-      <h1 className='text-4xl font-bold  text-center custom-font text-primary my-10'>Pending Loans</h1>
+      <h1 className='text-4xl font-bold  text-center custom-font text-primary my-10'>Pending Loan Applications</h1>
       <div className="overflow-x-auto my-15">
         <table className="table ">
           {/* head */}
@@ -140,7 +140,7 @@ const PendingLoan = () => {
 
                   <button disabled={processingId === loan._id} onClick={() => handleStatus(loan._id, 'rejected')} className="btn bg-[#d14249] text-white btn-sm">Reject</button>
 
-                  <button onClick={() => navigate(`/loan-details/${loan._id}`)} className="btn btn-primary btn-sm">View</button>
+                  <button onClick={() => navigate(`/loan-details/${loan.loanId}`)} className="btn btn-primary btn-sm">View</button>
                 </td>
 
               </tr>)}

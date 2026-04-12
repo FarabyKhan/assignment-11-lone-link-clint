@@ -6,6 +6,7 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 const LoanApplications = () => {
   const [modal, setModal] = useState(false)
     const [selectedLoan, setSelectedLoan] = useState(null);
+    const [filteredStatus, setFilteredStatus] = useState("all")
 
     const axiosSecure = useAxiosSecure()
     const { data: loanApplication = [] } = useQuery({
@@ -16,6 +17,15 @@ const LoanApplications = () => {
         }
     
       })
+
+      const filteredLoans =loanApplication.filter((loan)=>{
+          if(filteredStatus === "all"){
+            return true;
+          }
+          else{
+            return loan.status === filteredStatus;
+          }
+  })
 
       const convertAmount = (number) => {
 
@@ -37,9 +47,13 @@ const LoanApplications = () => {
   };
 
   const formatCategory =(category)=>{
-    if(!category) return"";
-      return category.split('-').map(word=>
+    if(!category){
+      return"";
+    }  
+     else{
+       return category.split('-').map(word=>
        word.charAt(0).toUpperCase()+ word.slice(1)).join(' ');
+     }
   }
 
   const capitalizeText = (text = "")=>{
@@ -62,10 +76,27 @@ const LoanApplications = () => {
     setSelectedLoan(null)
   };
 
+  
+
   return (
     <div>
       <h1 className='text-4xl font-bold  text-center custom-font text-primary my-10'>Loan Applications</h1>
       <div className="overflow-x-auto my-15">
+        <div className='flex justify-between items-center'>
+          <div>
+        <h2 className='text-center text-lg font-semibold custom-font text-primary'>
+          Showing {filteredLoans.length} Applications</h2>
+          </div>
+          <div className='my-15 mr-5'>
+            <select value={filteredStatus} onClick={(e)=> setFilteredStatus(e.target.value)}
+              className='select select-bordered font-semibold custom-font'>
+              <option value="all">All The Application</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
         <table className="table ">
           {/* head */}
           <thead>
@@ -81,7 +112,7 @@ const LoanApplications = () => {
             </tr>
           </thead>
           <tbody>
-            {loanApplication.map((loan) =>
+            {filteredLoans.map((loan) =>
               <tr key={loan._id}>
                 <td>
                   {loan._id}
