@@ -19,7 +19,7 @@ const UpdatesLoan = () => {
         getValues,
         formState: { errors } } = useForm()
 
-    const { loading,setLoading, } = useAuth()
+    const { loading,setLoading,user } = useAuth()
     const { id } = useParams()
     const [showAllPlans, setShowAllPlans] = useState(false)
     const emiOptions = [6, 12, 24, 36, 48, 60, 90, 120, 180];
@@ -30,9 +30,14 @@ const UpdatesLoan = () => {
     const watchLoanLimit = watch('maxLoanLimit');
     const watchInterestRate = watch('interestRate');
 
+    const loanLimitValue = watchLoanLimit || originalData.maxLoanLimit;
+    const interestRate = watchInterestRate || originalData.interestRate
+
+
     const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
-
+    
+    
 
 
     const calculateEMI = (principal, annualRate, months) => {
@@ -59,6 +64,7 @@ const UpdatesLoan = () => {
                     maxLoanLimit: loan.maxLoanLimit,
                     emiDurations: loan.emiPlans?.map(plan => String(plan.months)),
                     image: loan.image,
+                    showOnHome: loan.showOnHome
                 };
                 reset(updatedData)
                 setOriginalData(updatedData)
@@ -66,7 +72,8 @@ const UpdatesLoan = () => {
     }, [id, axiosSecure, reset])
 
     const handleAddLoan = async (data) => {
-        const loanLimit = Number(data.maxLoanLimit);
+        try {
+            const loanLimit = Number(data.maxLoanLimit);
         const interestRate = Number(data.interestRate);
 
 
@@ -85,11 +92,13 @@ const UpdatesLoan = () => {
             const formData = new FormData()
             formData.append('image', data.images[0])
             const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY_2}`
-            const res = await axios.post(image_API_URL, formData)
+            const imgRes = await axios.post(image_API_URL, formData)
 
-            imageUrl = res.data.data.url
-        }
+            imageUrl = imgRes.data.data.url
 
+           
+        } 
+        
         const loanData = {
             title: data.loanTitle,
             description: data.description,
@@ -100,10 +109,11 @@ const UpdatesLoan = () => {
             requiredDocuments: data.requiredDocuments || [],
             emiPlans,
             image: imageUrl,
-            showOnHome: false,
+            showOnHome: originalData.showOnHome
         }
+        
         console.log(loanData);
-        Swal.fire({
+    const confirm =await Swal.fire({
             title: "Are you sure to update the loan?",
             text: "You won't be able to revert this!",
             icon: "warning",
@@ -111,14 +121,30 @@ const UpdatesLoan = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, Confirm it!"
-        }).then((result) => {
-
-            if (result.isConfirmed) {
+        }) 
+         if (!confirm.isConfirmed) 
+            return
+         
                 setLoading(true)
-                axiosSecure.patch(`/loans/${id}`, loanData)
-                    .then(res => {
-                        console.log('Loan added successfully:', loanData);
-                        if (res.data.modifiedCount > 0) {
+         const updateRes = await axiosSecure.patch(`/loans/${id}`, loanData)
+                   
+                        if (updateRes.data.modifiedCount > 0) {
+                            const updatedLoan = await axiosSecure.get(`/loans/${id}`)
+                            const loan = updatedLoan.data;
+                            const updatedData ={
+                                    loanTitle: loan.title,
+                                    description: loan.description,
+                                    shortDescription: loan.shortDescription,
+                                    category: loan.category,
+                                    interestRate: loan.interestRate,
+                                    maxLoanLimit: loan.maxLoanLimit,
+                                    emiDurations: loan.emiPlans?.map(plan => String(plan.months)),
+                                    image: loan.image,
+                                    showOnHome: loan.showOnHome
+                                };
+                                reset(updatedData);
+                                setOriginalData(updatedData);
+
                             Swal.fire({
                                 position: "middle",
                                 icon: "success",
@@ -126,20 +152,34 @@ const UpdatesLoan = () => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
+
+                            
                             setTimeout(()=>{
-                                navigate('/dashboard/all-loan');
+                                if(user?.role === 'admin'){
+                                    navigate('/dashboard/manage-loans')
+                                }
+                                else{
+                                     navigate('/dashboard/all-loan');
+                                }        
                             },1500);
                            
 
                         }
-                    })
-                    .finally(()=> setLoading(false))
-            }
-        })
+                            } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Something went wrong!"(error),
+                                
+                                });
+                            }finally{
+                                setLoading(false)
+                            }    
 
+                        }
 
+    
 
-    }
     const handleCancel = (data) => {
         reset({
             ...getValues(), [data]: originalData[data]
@@ -201,7 +241,8 @@ const UpdatesLoan = () => {
 
 
                             {/* Max Loan Limit */}
-                            <div>
+                            
+                                    <div>
                                 <label className="label my-3 text-sm font-bold">Max Loan Limit</label>
                                 <input type="number"{...register('maxLoanLimit', { min: { value: 1, message: 'Loan limit must be greater then 0' } })} readOnly={edit !== 'maxLoanLimit'} className="input w-full mb-3  text-sm " placeholder="Max Loan Limit" />
                                 {edit === 'maxLoanLimit' ? (<button type="button" className="btn btn-ghost btn-sm" onClick={() => handleCancel('maxLoanLimit')}>Cancel</button>)
@@ -209,7 +250,7 @@ const UpdatesLoan = () => {
                                         Edit
                                     </button>)}
                             </div>
-
+                              
 
 
                             {/* Short description */}
@@ -241,16 +282,17 @@ const UpdatesLoan = () => {
 
 
                             {/* EMI Plans */}
-                            <div className='md:col-span-2'>
+                            
+                                        <div className='md:col-span-2'>
                                 <label className="label my-3 text-sm font-bold">Available EMI Plans</label>
                                 <div className='grid grid-cols-1 sm:grid-cols-3 gap-4'>
                                     {
 
                                         (showAllPlans ? emiOptions : emiOptions.slice(0, 3)).map((months, i) => {
-                                            const emiAmount = watchLoanLimit && watchInterestRate ?
+                                            const emiAmount = loanLimitValue && interestRate ?
                                                 calculateEMI(
-                                                    Number(watchLoanLimit),
-                                                    Number(watchInterestRate),
+                                                    Number(loanLimitValue),
+                                                    Number(interestRate),
                                                     months
                                                 ) : null;
 
@@ -286,7 +328,7 @@ const UpdatesLoan = () => {
                                 </p>
                                 <div className='text-center mt-4'>
                                     <button type='button' onClick={() => setShowAllPlans(!showAllPlans)} className='btn btn-outline btn-sm'>
-                                        {showAllPlans ? "Show More Plans" : "Show Less Plans"}
+                                        {showAllPlans ? "Show Less Plans" : "Show More Plans"}
                                     </button>
                                 </div>
                                 {edit === 'emiDurations' ? (<button type="button" className="btn btn-ghost btn-sm" onClick={() => handleCancel('emiDurations')}>Cancel</button>)
@@ -294,7 +336,7 @@ const UpdatesLoan = () => {
                                         Edit
                                     </button>)}
                             </div>
-
+                                
 
                             {/* Images Upload */}
                             <div >
@@ -311,7 +353,7 @@ const UpdatesLoan = () => {
                                 <button type="submit" className="btn btn-primary px-10" disabled={loading}>
                                    {loading ? LoadingAm : "Update"}
                                 </button>
-                                <Link to={'/dashboard/all-loan'} className="btn btn-ghost px-10">
+                                <Link to={user?.role === 'admin' ? '/dashboard/all-loan' : '/dashboard/manage-loans'} className="btn btn-ghost px-10">
                                     Cancel
                                 </Link>
                             </div>

@@ -102,6 +102,11 @@ const ManageUsers = () => {
     })
   }
 
+  const capitalizeText = (text = "")=>{
+    return text.split(' ').map(word=>word.charAt(0).toUpperCase()+word.slice(1))
+    .join(' ');
+  };
+
 
 
   return (
@@ -150,7 +155,7 @@ const ManageUsers = () => {
 
                 <td className='font-semibold'>
                   <span>
-                    {user.role || 'borrower'}
+                    {capitalizeText(user.role || 'borrower')}
                   </span>
                 </td>
                 <td ><span className={`badge ${user.status === 'Suspended' ? 'badge-error' : 'badge-success'} font-semibold`}>{user.status || 'Active'}</span></td>

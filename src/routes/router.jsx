@@ -20,6 +20,8 @@ import LoanApplications from '../Page/Dashboard/Admin/LoanApplications';
 import ErrorElement2 from '../Page/Utility/ErrorElement2';
 import ErrorElement from '../Page/Utility/ErrorElement';
 import ApprovedLoan from '../Page/Dashboard/Manager/ApprovedLoan';
+import ManageLoans from '../Page/Dashboard/Manager/ManageLoans';
+
 
 
 
@@ -104,6 +106,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/approved-loan",
                 element: <ApprovedLoan></ApprovedLoan>
+            },
+            {
+                path: "/dashboard/manage-loans",
+                element:<ManageLoans></ManageLoans>
             },
         ]
 

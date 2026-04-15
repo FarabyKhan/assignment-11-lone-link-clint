@@ -3,6 +3,8 @@ import React from 'react';
 import useAxiosSecure from '../../useHooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router';
+import { RxUpdate } from "react-icons/rx";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 const AllLoan = () => {
 
@@ -32,6 +34,16 @@ const AllLoan = () => {
   const handleToggle = (id, value) => {
     toggleMutation.mutate({ id, value });
   };
+
+  const formatCategory =(category)=>{
+    if(!category){
+      return"";
+    }  
+     else{
+       return category.split('-').map(word=>
+       word.charAt(0).toUpperCase()+ word.slice(1)).join(' ');
+     }
+  }
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -106,8 +118,8 @@ const AllLoan = () => {
                 <td className='font-bold text-red-500'>
                   {loan.interestRate} %
                 </td>
-                <td className='text-primary font-semibold'>{loan.category}</td>
-                <td>{loan.createdBy.name}
+                <td className='text-secondary font-semibold'>{formatCategory(loan.category)}</td>
+                <td><span className='text-accent font-bold'>{loan.createdBy.name}</span>
                   <br />
                   <span >{loan.createdBy.email}</span>
                 </td>
@@ -118,9 +130,9 @@ const AllLoan = () => {
                     onChange={(e) => handleToggle(loan._id, e.target.checked)}
                   />
                 </td>
-                <td className='flex gap-4'>
-                  <Link to={`/dashboard/updates-loan/${loan._id}`} className="btn btn-primary btn-xs">Update</Link>
-                  <button onClick={() => handleDelete(loan._id)} className="btn bg-red-500 btn-xs text-white">Delete</button>
+                <td className='flex gap-4 mt-2'>
+                  <Link to={`/dashboard/updates-loan/${loan._id}`} className="btn btn-primary btn-sm flex items-center"><RxUpdate className='w-4 h-4' />Update</Link>
+                  <button onClick={() => handleDelete(loan._id)} className="btn bg-red-500 btn-sm text-white"><RiDeleteBin5Line className='w-4 h-4' />Delete</button>
                 </td>
               </tr>
             )}

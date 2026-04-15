@@ -56,7 +56,7 @@ const LoanApplications = () => {
      }
   }
 
-  const capitalizeText = (text = "")=>{
+  const capitalizeText = (text)=>{
     return text.split(' ').map(word=>word.charAt(0).toUpperCase()+word.slice(1))
     .join(' ');
   };
@@ -133,7 +133,7 @@ const LoanApplications = () => {
                   </span>
                 </td>
                 <td ><span className={`badge  border-none flex py-4 ${loan.status === 'rejected' ? 'badge-error' :
-                  loan.status === 'approved' ? 'badge-success' : 'bg-[#feb600]'} font-semibold`}>{loan.status}</span></td>
+                  loan.status === 'approved' ? 'badge-success' : 'bg-[#feb600]'} font-semibold`}>{capitalizeText(loan.status)}</span></td>
                 <td className='flex gap-2'>
                   
                   <button onClick={()=>openModal(loan)} className="btn btn-primary btn-sm">View</button>

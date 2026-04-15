@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import DashNav from '../../Page/Dashboard/DashNav';
-import { Link, NavLink, Outlet } from 'react-router';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import { BsDatabaseFillAdd } from 'react-icons/bs';
 import Footer from '../../Components/Home/Footer';
 import { RiGalleryView2 } from 'react-icons/ri';
@@ -11,9 +11,68 @@ import { MdManageAccounts } from 'react-icons/md';
 import { MdPendingActions } from "react-icons/md";
 import { MdOutlineSettingsApplications } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
+import useRole from '../../useHooks/useRole';
+import LoadingAm from '../../Page/Utility/LoadingAm';
+import { MdOutlineManageAccounts } from "react-icons/md";
 
 const DashboardLayout = () => {
+
+  const {role, roleLoading} = useRole()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  
+
+  useEffect(()=>{
+    
+      if(!role)
+        return;
+      const adminRoutes =[
+    '/dashboard/manage-users',
+    '/dashboard/all-loan',
+    '/dashboard/loan-applications'
+  ]
+
+  const managerRoutes =[
+    '/dashboard/add-loan',
+    '/dashboard/pending-loan',
+    '/dashboard/approved-loan'
+  ]
+
+      const currentPath = location.pathname
+
+      if(adminRoutes.includes(currentPath)){
+        if(role !== 'admin'){
+          if(role === 'manager'){
+            navigate('/dashboard/add-loan')
+          }
+          else{
+            navigate('/dashboard')
+          }
+        }   
+      }
+
+      if(managerRoutes.includes(currentPath)){
+        if(role !== 'manager'){
+          if(role === 'admin'){
+            navigate('/dashboard/manage-users')
+          }
+          else{
+            navigate('/dashboard')
+          }
+        }   
+      }
+
+    },[ location.pathname,navigate,role])
+
+
+  if(roleLoading){
+   return <LoadingAm/>
+  }
+
   return (
+
+    
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
@@ -48,8 +107,10 @@ const DashboardLayout = () => {
 
             {/* List item */}
             <li className='my-5'>
+              {
+                role === 'admin' && <>
 
-              <DashActive data-tip="ManageUsers" to={'/dashboard/manage-users'}>
+                <DashActive data-tip="ManageUsers" to={'/dashboard/manage-users'}>
                 <MdManageAccounts className='w-5 h-5' />
                 <span className="is-drawer-close:hidden">Manage Users</span>
               </DashActive>
@@ -63,9 +124,19 @@ const DashboardLayout = () => {
                 <span className="is-drawer-close:hidden">Loan Applications</span>
               </DashActive>
 
-              <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
+                </>
+              }
+
+              {
+                role === 'manager' && <>
+                <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
                 <BsDatabaseFillAdd className='w-5 h-5' />
                 <span className="is-drawer-close:hidden">Add Loan</span>
+              </DashActive>
+              
+                <DashActive data-tip="AddLoan" to={'/dashboard/manage-loans'}>
+                <MdOutlineManageAccounts className='w-6 h-6' />
+                <span className="is-drawer-close:hidden">Manage Loans</span>
               </DashActive>
 
               <DashActive data-tip="PendingLoan" to={'/dashboard/pending-loan'}>
@@ -77,6 +148,8 @@ const DashboardLayout = () => {
                 <SiTicktick className='w-5 h-5' />
                 <span className="is-drawer-close:hidden">Approved Loan</span>
               </DashActive>
+                </>
+              }
             </li>
           </ul>
 

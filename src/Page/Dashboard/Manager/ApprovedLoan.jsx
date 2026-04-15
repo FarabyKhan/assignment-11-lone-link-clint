@@ -79,6 +79,7 @@ const ApprovedLoan = () => {
           {/* head */}
           <thead>
             <tr className='text-accent'>
+              <th>SL.No</th>
               <th>
                 Loan ID
               </th>
@@ -89,8 +90,11 @@ const ApprovedLoan = () => {
             </tr>
           </thead>
           <tbody>
-            { approvedLoan.map((loan) =>
+            { approvedLoan.map((loan,index) =>
               <tr key={loan._id}>
+                <th>
+                  {index + 1}
+                </th>
                 <td>
                   {loan._id}
                 </td>

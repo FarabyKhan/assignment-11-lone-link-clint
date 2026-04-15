@@ -4,6 +4,9 @@ import useAxiosSecure from '../../../useHooks/useAxiosSecure'
 import { useNavigate } from 'react-router'
 import Swal from 'sweetalert2'
 import LoadingAm from '../../Utility/LoadingAm'
+import { MdLibraryAddCheck } from 'react-icons/md'
+import { BiNoEntry } from "react-icons/bi";
+import { FaRegEye } from "react-icons/fa";
 
 
 
@@ -88,6 +91,11 @@ const PendingLoan = () => {
     return number
   }
 
+  const capitalizeText = (text = "")=>{
+    return text.split(' ').map(word=>word.charAt(0).toUpperCase()+word.slice(1))
+    .join(' ');
+  };
+
   
 
   if ( isLoading) {
@@ -102,6 +110,7 @@ const PendingLoan = () => {
           {/* head */}
           <thead>
             <tr className='text-accent'>
+              <th>SL.No</th>
               <th>
                 Loan ID
               </th>
@@ -113,8 +122,11 @@ const PendingLoan = () => {
             </tr>
           </thead>
           <tbody>
-            {loanApply.map((loan) =>
+            {loanApply.map((loan,index) =>
               <tr key={loan._id}>
+                <th>
+                  {index + 1}
+                </th>
                 <td>
                   {loan._id}
                 </td>
@@ -134,13 +146,13 @@ const PendingLoan = () => {
                   </span>
                 </td>
                 <td ><span className={`badge  border-none flex py-4 ${loan.status === 'rejected' ? 'badge-error' :
-                  loan.status === 'approved' ? 'badge-success' : 'bg-[#feb600]'} font-semibold`}>{loan.status}</span></td>
+                  loan.status === 'approved' ? 'badge-success' : 'bg-[#feb600]'} font-semibold`}>{capitalizeText(loan.status)}</span></td>
                 <td className='flex gap-2'>
-                  <button disabled={processingId === loan._id} onClick={() => handleStatus(loan._id, 'approved')} className="btn bg-[#039487] text-white btn-sm">Approve</button>
+                  <button disabled={processingId === loan._id} onClick={() => handleStatus(loan._id, 'approved')} className="btn bg-[#039487] text-white btn-sm flex items-center"><MdLibraryAddCheck className='w-4 h-4' />Approve</button>
 
-                  <button disabled={processingId === loan._id} onClick={() => handleStatus(loan._id, 'rejected')} className="btn bg-[#d14249] text-white btn-sm">Reject</button>
+                  <button disabled={processingId === loan._id} onClick={() => handleStatus(loan._id, 'rejected')} className="btn bg-[#d14249] text-white btn-sm flex items-center"><BiNoEntry className='w-4 h-4'  />Reject</button>
 
-                  <button onClick={() => navigate(`/loan-details/${loan.loanId}`)} className="btn btn-primary btn-sm">View</button>
+                  <button onClick={() => navigate(`/loan-details/${loan.loanId}`)} className="btn btn-primary btn-sm"><FaRegEye className='w-4 h-4' />View</button>
                 </td>
 
               </tr>)}

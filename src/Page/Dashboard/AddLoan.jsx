@@ -41,6 +41,11 @@ const AddLoan = () => {
         );
     };
 
+    const formatMoney = (amount) =>{
+    if(!amount) return 0;
+    return Number(amount).toLocaleString('en-BD')
+  };
+
     const handleAddLoan = data => {
         const loanLimit = Number(data.maxLoanLimit);
         const interestRate = Number(data.interestRate);
@@ -91,7 +96,7 @@ const AddLoan = () => {
                                 console.log('Loan added successfully:', loanData);
                                 if (res.data.insertedId) {
                                     Swal.fire({
-                                        position: "middle",
+                                        position: "top",
                                         icon: "success",
                                         title: "Loan Has Been Created!!",
                                         showConfirmButton: false,
@@ -160,7 +165,7 @@ const AddLoan = () => {
                                 <label className="label my-3 text-sm font-bold">Max Loan Limit</label>
                                 <input type="number"{...register('maxLoanLimit', { required: 'Loan limit is required', min: { value: 1, message: 'Loan limit must be greater then 0' } })} className="input w-full mb-3  text-sm " placeholder="Max Loan Limit" />
                                 {errors.maxLoanLimit && (
-                                    <p className='text-red-500 text-xs'>{errors.maxLoanLimit.message}</p>
+                                    <p className='text-red-500 text-xs'>{formatMoney(errors.maxLoanLimit.message)}</p>
                                 )}
                             </div>
 
