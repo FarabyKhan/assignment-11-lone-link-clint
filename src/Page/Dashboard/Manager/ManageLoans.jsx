@@ -77,15 +77,14 @@ const ManageLoans = () => {
     <div>
       <h1 className='text-4xl text-primary font-semibold text-center'>Manage Loans</h1>
       <div className="overflow-x-auto my-15">
-        <div className='flex justify-end-safe items-center my-10'>
+        <div className='flex justify-between items-center my-10'>
           <div>
           
           </div>
-          <h2 className='font-semibold my-2 text-accent'>Search the loan with Title or Category :</h2>
           <div className='mx-10 '>
 
-            <label className="input">
-              <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <label className="input border-accent rounded-xl">
+              <svg className="h-[1em] opacity-50 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <g
                   strokeLinejoin="round"
                   strokeLinecap="round"

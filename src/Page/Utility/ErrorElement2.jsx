@@ -20,4 +20,4 @@ const ErrorElement2 = () => {
     );
 };
 
-export default ErrorElement2;
+export default ErrorElement2

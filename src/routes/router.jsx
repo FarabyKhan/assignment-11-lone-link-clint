@@ -17,10 +17,13 @@ import ManageUsers from '../Page/Dashboard/Admin/ManageUsers';
 import UpdatesLoan from '../Page/Dashboard/UpdatesLoan';
 import PendingLoan from '../Page/Dashboard/Manager/PendingLoan';
 import LoanApplications from '../Page/Dashboard/Admin/LoanApplications';
-import ErrorElement2 from '../Page/Utility/ErrorElement2';
+
 import ErrorElement from '../Page/Utility/ErrorElement';
 import ApprovedLoan from '../Page/Dashboard/Manager/ApprovedLoan';
 import ManageLoans from '../Page/Dashboard/Manager/ManageLoans';
+import ManagerProfile from '../Page/Dashboard/Manager/ManagerProfile';
+import ErrorElement2 from '../Page/Utility/ErrorElement2';
+
 
 
 
@@ -30,7 +33,7 @@ export const router = createBrowserRouter([
         path: "/",
         Component: HomeLayout,
         hydrateFallbackElement: <LoadingPage></LoadingPage>,
-        errorElement: <ErrorElement2></ErrorElement2> ,
+        errorElement: <ErrorElement2></ErrorElement2>,
         children: [
             {
                 index: true,
@@ -109,7 +112,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/manage-loans",
-                element:<ManageLoans></ManageLoans>
+                element: <ManageLoans></ManageLoans>
+            },
+            {
+                path: "/dashboard/manage-profile",
+                element: <ManagerProfile></ManagerProfile>
             },
         ]
 

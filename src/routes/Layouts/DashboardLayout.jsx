@@ -14,6 +14,7 @@ import { SiTicktick } from "react-icons/si";
 import useRole from '../../useHooks/useRole';
 import LoadingAm from '../../Page/Utility/LoadingAm';
 import { MdOutlineManageAccounts } from "react-icons/md";
+import { CgProfile } from 'react-icons/cg';
 
 const DashboardLayout = () => {
 
@@ -129,6 +130,11 @@ const DashboardLayout = () => {
 
               {
                 role === 'manager' && <>
+                <DashActive data-tip="AddLoan" to={'/dashboard/manage-profile'}>
+                <CgProfile className='w-5 h-5' />
+                <span className="is-drawer-close:hidden">My Profile</span>
+              </DashActive>
+
                 <DashActive data-tip="AddLoan" to={'/dashboard/add-loan'}>
                 <BsDatabaseFillAdd className='w-5 h-5' />
                 <span className="is-drawer-close:hidden">Add Loan</span>
