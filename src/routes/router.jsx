@@ -17,12 +17,14 @@ import ManageUsers from '../Page/Dashboard/Admin/ManageUsers';
 import UpdatesLoan from '../Page/Dashboard/UpdatesLoan';
 import PendingLoan from '../Page/Dashboard/Manager/PendingLoan';
 import LoanApplications from '../Page/Dashboard/Admin/LoanApplications';
-
 import ErrorElement from '../Page/Utility/ErrorElement';
 import ApprovedLoan from '../Page/Dashboard/Manager/ApprovedLoan';
 import ManageLoans from '../Page/Dashboard/Manager/ManageLoans';
 import ManagerProfile from '../Page/Dashboard/Manager/ManagerProfile';
 import ErrorElement2 from '../Page/Utility/ErrorElement2';
+import MyLoans from '../Page/Dashboard/User/MyLoans';
+import PaymentSuccess from '../Page/Dashboard/PaymentSuccess';
+import PaymentCancel from '../Page/Dashboard/PaymentCancel';
 
 
 
@@ -117,6 +119,19 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/manage-profile",
                 element: <ManagerProfile></ManagerProfile>
+            },
+            {
+                path: "/dashboard/my-loans",
+                element: <MyLoans></MyLoans>
+            },
+            
+            {
+                path: "/dashboard/payment-success",
+                element: <PaymentSuccess></PaymentSuccess>
+            },
+            {
+                path: "/dashboard/payment-cancelled",
+                element: <PaymentCancel></PaymentCancel>
             },
         ]
 

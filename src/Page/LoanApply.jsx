@@ -23,19 +23,23 @@ const LoanApply = () => {
         useEffect(()=>{
             if(!_id || !user)
                 return;
-            
-             fetch(`http://localhost:3000/loans/${_id}`)
-             .then(res=>res.json())
-             .then(data=>{
+            axiosSecure.get(`/loans/${_id}`)
+             
+             .then(res=>{
+                const data = res.data;
                 setLoan(data);
                 reset({
                     email: user?.email || '',
                     loanTitle: data?.title || '',
                     interestRate: data.interestRate || ''
-                })
+                });
+             }).catch((error)=>{
+                console.log(error.message);
+                
              })
+             
 
-        },[_id,reset,user])
+        },[_id,reset,user,axiosSecure])
 
         const handleLoanApplication= async(formData) => {
 
@@ -71,10 +75,11 @@ const LoanApply = () => {
   
               const result =  res.data
               if(result.insertedId){
+                // 
                     Swal.fire({
                        position: "center",
                        icon: "success",
-                       title: "Loan Application Submitted Successfully!",
+                       title: "Loan Application Submitted Successfully! Please pay The Application Fee.",
                        showConfirmButton: false,
                        timer: 1500
                    });

@@ -5,7 +5,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import { BsDatabaseFillAdd } from 'react-icons/bs';
 import Footer from '../../Components/Home/Footer';
 import { RiGalleryView2 } from 'react-icons/ri';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { GiHamburgerMenu, GiMoneyStack } from 'react-icons/gi';
 import DashActive from '../../Page/Dashboard/DashActive';
 import { MdManageAccounts } from 'react-icons/md';
 import { MdPendingActions } from "react-icons/md";
@@ -40,10 +40,14 @@ const DashboardLayout = () => {
     '/dashboard/approved-loan'
   ]
 
+  const userRoutes =[
+    '/dashboard/my-loans'
+  ]
+
       const currentPath = location.pathname
 
       if(adminRoutes.includes(currentPath)){
-        if(role !== 'admin'){
+        if(role !== 'admin' || role !== 'borrower'){
           if(role === 'manager'){
             navigate('/dashboard/add-loan')
           }
@@ -54,9 +58,20 @@ const DashboardLayout = () => {
       }
 
       if(managerRoutes.includes(currentPath)){
-        if(role !== 'manager'){
+        if(role !== 'manager' || role !== 'borrower'){
           if(role === 'admin'){
             navigate('/dashboard/manage-users')
+          }
+          else{
+            navigate('/dashboard')
+          }
+        }   
+      }
+
+      if(userRoutes.includes(currentPath)){
+          if(role !== 'admin' || role !== 'manager'){
+          if(role === 'borrower'){
+            navigate('/dashboard/my-loans')
           }
           else{
             navigate('/dashboard')
@@ -83,8 +98,9 @@ const DashboardLayout = () => {
           <DashNav></DashNav>
         </nav>
         {/* Page content here */}
+        {/* bg-linear-to-b from-[#bad4d2] to-[#e2eef3] */}
 
-        <main className='flex-1 bg-base-100 overflow-y-auto'>
+        <main className='flex-1 overflow-y-auto bg-linear-to-b from-[#e2eef3] to-[#bad4d2]'>              
           <div className='mx-auto min-h-screen w-full max-w-7xl px-6 py-8'>
             <Outlet></Outlet>
           </div>
@@ -156,6 +172,17 @@ const DashboardLayout = () => {
               </DashActive>
                 </>
               }
+
+              {
+                role === 'borrower' && <>
+                <DashActive data-tip="AddLoan" to={'/dashboard/my-loans'}>
+                <GiMoneyStack className='w-5 h-5' />
+                <span className="is-drawer-close:hidden">My Loans</span>
+              </DashActive>
+                </>
+              }
+             
+
             </li>
           </ul>
 

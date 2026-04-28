@@ -6,7 +6,7 @@ import LoadingPage from '../../Page/Utility/LoadingPage';
 
 const HomeLayout = () => {
     return (
-        <div className='mx-auto'>
+        <div className='mx-auto bg-[#d8e4ee]'>
             <LoadingPage>
                 <nav>
                     <Navbar></Navbar>
