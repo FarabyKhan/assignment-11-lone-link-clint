@@ -25,6 +25,7 @@ import ErrorElement2 from '../Page/Utility/ErrorElement2';
 import MyLoans from '../Page/Dashboard/User/MyLoans';
 import PaymentSuccess from '../Page/Dashboard/PaymentSuccess';
 import PaymentCancel from '../Page/Dashboard/PaymentCancel';
+import RoleProtectiveRoutes from './RoleProtectiveRoutes';
 
 
 
@@ -82,19 +83,29 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/dashboard/all-loan",
-                element: <AllLoan></AllLoan>
+                element: <RoleProtectiveRoutes allowedRoles={['admin']}>
+                    <AllLoan></AllLoan>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/add-loan",
-                element: <AddLoan></AddLoan>
+                element: <RoleProtectiveRoutes allowedRoles={['manager']}>
+                            <AddLoan></AddLoan>
+                         </RoleProtectiveRoutes>
+                
+                
             },
             {
                 path: "/dashboard/loan-applications",
-                element: <LoanApplications></LoanApplications>
+                element: <RoleProtectiveRoutes allowedRoles={['admin']}>
+                    <LoanApplications></LoanApplications>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/manage-users",
-                element: <ManageUsers></ManageUsers>
+                element: <RoleProtectiveRoutes allowedRoles={['admin']}>
+                    <ManageUsers></ManageUsers>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/all-loans",
@@ -106,23 +117,33 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/pending-loan",
-                element: <PendingLoan></PendingLoan>
+                element: <RoleProtectiveRoutes allowedRoles={['manager']}>
+                    <PendingLoan></PendingLoan>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/approved-loan",
-                element: <ApprovedLoan></ApprovedLoan>
+                element: <RoleProtectiveRoutes allowedRoles={['manager']}>
+                    <ApprovedLoan></ApprovedLoan>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/manage-loans",
-                element: <ManageLoans></ManageLoans>
+                element: <RoleProtectiveRoutes allowedRoles={['manager']}>
+                    <ManageLoans></ManageLoans>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/manage-profile",
-                element: <ManagerProfile></ManagerProfile>
+                element: <RoleProtectiveRoutes allowedRoles={['manager']}>
+                    <ManagerProfile></ManagerProfile>
+                </RoleProtectiveRoutes>
             },
             {
                 path: "/dashboard/my-loans",
-                element: <MyLoans></MyLoans>
+                element: <RoleProtectiveRoutes allowedRoles={['borrower']}>
+                    <MyLoans></MyLoans>
+                </RoleProtectiveRoutes>
             },
             
             {

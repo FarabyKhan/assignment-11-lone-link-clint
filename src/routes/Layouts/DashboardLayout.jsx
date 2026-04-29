@@ -18,73 +18,8 @@ import { CgProfile } from 'react-icons/cg';
 
 const DashboardLayout = () => {
 
-  const {role, roleLoading} = useRole()
-  const navigate = useNavigate()
-  const location = useLocation()
-
+  const {role} = useRole()
   
-
-  useEffect(()=>{
-    
-      if(!role)
-        return;
-      const adminRoutes =[
-    '/dashboard/manage-users',
-    '/dashboard/all-loan',
-    '/dashboard/loan-applications'
-  ]
-
-  const managerRoutes =[
-    '/dashboard/add-loan',
-    '/dashboard/pending-loan',
-    '/dashboard/approved-loan'
-  ]
-
-  const userRoutes =[
-    '/dashboard/my-loans'
-  ]
-
-      const currentPath = location.pathname
-
-      if(adminRoutes.includes(currentPath)){
-        if(role !== 'admin' || role !== 'borrower'){
-          if(role === 'manager'){
-            navigate('/dashboard/add-loan')
-          }
-          else{
-            navigate('/dashboard')
-          }
-        }   
-      }
-
-      if(managerRoutes.includes(currentPath)){
-        if(role !== 'manager' || role !== 'borrower'){
-          if(role === 'admin'){
-            navigate('/dashboard/manage-users')
-          }
-          else{
-            navigate('/dashboard')
-          }
-        }   
-      }
-
-      if(userRoutes.includes(currentPath)){
-          if(role !== 'admin' || role !== 'manager'){
-          if(role === 'borrower'){
-            navigate('/dashboard/my-loans')
-          }
-          else{
-            navigate('/dashboard')
-          }
-        }   
-      }
-
-    },[ location.pathname,navigate,role])
-
-
-  if(roleLoading){
-   return <LoadingAm/>
-  }
 
   return (
 

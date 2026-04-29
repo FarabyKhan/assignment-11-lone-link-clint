@@ -113,7 +113,7 @@ export default function ManagerProfile () {
             }
     })
 
-     const customTick =({ x,y,payload })=>{
+     const CustomTick =({ x,y,payload })=>{
         return(
             <text
             x={x}
@@ -280,7 +280,7 @@ export default function ManagerProfile () {
                             interval={0}
                             angle={-25}
                             height={100}
-                           tick={<customTick/>}
+                           tick={CustomTick}
                             />
                             <YAxis allowDecimals={false} 
                             domain={[0, 'dataMax + 2']}
