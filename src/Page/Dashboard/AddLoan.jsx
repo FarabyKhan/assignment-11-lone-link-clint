@@ -116,12 +116,12 @@ const AddLoan = () => {
     }
 
     return (
-        <div className='mt-10 text-black "w-full min-h-[calc(100vh-64px)]"'>
-            <h1 className='text-4xl font-bold mb-6 text-center my-3 custom-font text-primary'>Create A Loan</h1>
+        <div className='mt-10 text-black "w-full min-h-[calc(100vh-64px)]" mb-5 bg-white rounded-xl'>
+            <h1 className='text-4xl font-bold mb-6 text-center my-3 custom-font text-primary pt-15'>Create A Loan</h1>
             <form onSubmit={handleSubmit(handleAddLoan)}>
-                <div>
+                <div className=''>
                     <fieldset className="fieldset shadow-2xl p-6 rounded-lg">
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 px-10'>
 
                             {/* Loan Title */}
                             <div>

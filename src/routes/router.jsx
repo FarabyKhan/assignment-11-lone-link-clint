@@ -26,6 +26,8 @@ import MyLoans from '../Page/Dashboard/User/MyLoans';
 import PaymentSuccess from '../Page/Dashboard/PaymentSuccess';
 import PaymentCancel from '../Page/Dashboard/PaymentCancel';
 import RoleProtectiveRoutes from './RoleProtectiveRoutes';
+import MyProfile from '../Page/Dashboard/User/MyProfile';
+import RoleRedirect from './Layouts/RoleRedirect';
 
 
 
@@ -82,13 +84,17 @@ export const router = createBrowserRouter([
         </PrivateRoutes>,
         children: [
             {
-                path: "/dashboard/all-loan",
+                index:true,
+                element: <RoleRedirect></RoleRedirect>
+            },
+            {
+                path: "all-loan",
                 element: <RoleProtectiveRoutes allowedRoles={['admin']}>
                     <AllLoan></AllLoan>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/add-loan",
+                path: "add-loan",
                 element: <RoleProtectiveRoutes allowedRoles={['manager']}>
                             <AddLoan></AddLoan>
                          </RoleProtectiveRoutes>
@@ -96,63 +102,70 @@ export const router = createBrowserRouter([
                 
             },
             {
-                path: "/dashboard/loan-applications",
+                path: "loan-applications",
                 element: <RoleProtectiveRoutes allowedRoles={['admin']}>
                     <LoanApplications></LoanApplications>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/manage-users",
+                path: "manage-users",
                 element: <RoleProtectiveRoutes allowedRoles={['admin']}>
                     <ManageUsers></ManageUsers>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/all-loans",
+                path: "all-loans",
                 element: <AllLoans></AllLoans>
             },
             {
-                path: "/dashboard/updates-loan/:id",
+                path: "updates-loan/:id",
                 element: <UpdatesLoan></UpdatesLoan>
             },
             {
-                path: "/dashboard/pending-loan",
+                path: "pending-loan",
                 element: <RoleProtectiveRoutes allowedRoles={['manager']}>
                     <PendingLoan></PendingLoan>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/approved-loan",
+                path: "approved-loan",
                 element: <RoleProtectiveRoutes allowedRoles={['manager']}>
                     <ApprovedLoan></ApprovedLoan>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/manage-loans",
+                path: "manage-loans",
                 element: <RoleProtectiveRoutes allowedRoles={['manager']}>
                     <ManageLoans></ManageLoans>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/manage-profile",
+                path: "manage-profile",
                 element: <RoleProtectiveRoutes allowedRoles={['manager']}>
                     <ManagerProfile></ManagerProfile>
                 </RoleProtectiveRoutes>
             },
             {
-                path: "/dashboard/my-loans",
+                path: "my-loans",
                 element: <RoleProtectiveRoutes allowedRoles={['borrower']}>
                     <MyLoans></MyLoans>
                 </RoleProtectiveRoutes>
             },
             
             {
-                path: "/dashboard/payment-success",
+                path: "payment-success",
                 element: <PaymentSuccess></PaymentSuccess>
             },
             {
-                path: "/dashboard/payment-cancelled",
+                path: "payment-cancelled",
                 element: <PaymentCancel></PaymentCancel>
+            },
+
+            {
+                path: "user-profile",
+                element: <RoleProtectiveRoutes allowedRoles={['borrower']}>
+                        <MyProfile></MyProfile>
+                      </RoleProtectiveRoutes>
             },
         ]
 

@@ -75,7 +75,7 @@ const LoanApply = () => {
   
               const result =  res.data
               if(result.insertedId){
-                // 
+                 navigate(`/dashboard/my-loans`);
                     Swal.fire({
                        position: "center",
                        icon: "success",
@@ -83,7 +83,7 @@ const LoanApply = () => {
                        showConfirmButton: false,
                        timer: 1500
                    });
-                   navigate(`/loan-details/${_id}`);
+                //    navigate(`/loan-details/${_id}`);
               }
 
             } catch (error) {

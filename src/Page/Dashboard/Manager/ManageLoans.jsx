@@ -74,10 +74,10 @@ const ManageLoans = () => {
   }
 
   return (
-    <div>
-      <h1 className='text-4xl text-primary font-semibold text-center'>Manage Loans</h1>
-      <div className="overflow-x-auto my-15">
-        <div className='flex justify-between items-center my-10'>
+    <div className=''>
+      <h1 className='text-4xl text-primary font-semibold text-center '>Manage Loans</h1>
+      <div className="overflow-x-auto my-10 bg-white p-10 shadow-2xl rounded-xl">
+        <div className='flex justify-between items-center my-10 '>
           <div>
           
           </div>

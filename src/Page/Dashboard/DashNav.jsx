@@ -18,12 +18,12 @@ const DashNav = () => {
       .catch(error => {
         console.log(error);
 
-      })
+      }) 
   }
 
 
     return (
-        <div className="navbar bg-linear-to-b from-[#bad4d2] to-[#e2eef3] shadow-sm px-10">
+        <div className="navbar bg-linear-to-b from-[#d1efff] to-[#eef4f6] shadow-sm px-10">
   <div className="navbar-start">
     <label
         htmlFor="my-drawer-4"
@@ -32,8 +32,11 @@ const DashNav = () => {
       >
         <GiHamburgerMenu size={22} />
       </label>
-  <Link to={"/"}><a className="btn btn-ghost text-xl"><Logo></Logo>
-  <span></span></a></Link>
+  <Link to={"/"} className="ml-3 lg:hidden" data-tip="Homepage">
+                  {/* Home icon */}
+                   <img src='/loanlink_logo.png' className='h-10 w-10' alt="" />
+                  
+                </Link>
   </div>
   <div className="navbar-end">
     {loading ? <ScaleLoader color="#191186" /> :

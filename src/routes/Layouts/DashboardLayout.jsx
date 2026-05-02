@@ -35,7 +35,7 @@ const DashboardLayout = () => {
         {/* Page content here */}
         {/* bg-linear-to-b from-[#bad4d2] to-[#e2eef3] */}
 
-        <main className='flex-1 overflow-y-auto bg-linear-to-b from-[#e2eef3] to-[#bad4d2]'>              
+        <main className='flex-1 overflow-y-auto bg-linear-to-b from-[#f1f7ff] to-[#c6f2ff]'>              
           <div className='mx-auto min-h-screen w-full max-w-7xl px-6 py-8'>
             <Outlet></Outlet>
           </div>
@@ -50,10 +50,10 @@ const DashboardLayout = () => {
           <ul className="menu w-full grow px-2 space-y-1">
             {/* List item */}
             <li>
-              <Link to={"/dashboard"} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
+              <Link to={"/"} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
                 {/* Home icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
-                <span className="is-drawer-close:hidden">Homepage</span>
+                 <img src='/loanlink_logo.png' className='h-8 w-8' alt="" />
+                <span className="is-drawer-close:hidden custom-font text-primary text-lg">LoanLink</span>
               </Link>
             </li>
 
@@ -110,10 +110,18 @@ const DashboardLayout = () => {
 
               {
                 role === 'borrower' && <>
+
+                <DashActive data-tip="AddLoan" to={'/dashboard/user-profile'}>
+                <CgProfile className='w-5 h-5' />
+                <span className="is-drawer-close:hidden">My Profile</span>
+              </DashActive>
+
                 <DashActive data-tip="AddLoan" to={'/dashboard/my-loans'}>
                 <GiMoneyStack className='w-5 h-5' />
                 <span className="is-drawer-close:hidden">My Loans</span>
               </DashActive>
+
+                
                 </>
               }
              

@@ -4,7 +4,7 @@ import errorAn from '../../assets/error2.json'
 import Lottie from 'lottie-react';
 const ErrorElement2 = () => {
     const error = useRouteError()
-    const errorMessage = error?.message || error.statusText || "An Unexpected Error Occurred!"
+    const errorMessage = error?.message || error.statusText ||  "Unexpected Application Error!"
    return (
         <div className='flex flex-col  items-center min-h-screen space-y-2 text-center'>
            <Lottie
